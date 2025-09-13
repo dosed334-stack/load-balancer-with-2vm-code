@@ -1,0 +1,24 @@
+trigger: none
+
+pool:
+  name: kashi_agent_pool
+
+stages:
+- stage: pipelineinfra
+  displayName: "Pipeline Infra"
+  jobs:
+  - job: build
+    displayName: "Build Job"
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'Azure subscription 1(e59b3be3-2cd8-493e-a182-a6b8da13eccc)'
+        backendAzureRmResourceGroupName: 'shashi_rg'
+        backendAzureRmStorageAccountName: 'shashistg21'
+        backendAzureRmContainerName: 'cont21'
+        backendAzureRmKey: 'shashi.tfstate'
