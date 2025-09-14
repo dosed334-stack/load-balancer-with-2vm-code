@@ -22,4 +22,22 @@ stages:
         backendAzureRmKey: 'terraform.tfstate'
 
 
-    
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/ENV/DEV'
+
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/ENV/DEV'
+        environmentServiceNameAzureRM: 'Azure subscription 1(e59b3be3-2cd8-493e-a182-a6b8da13eccc)'
+
+    - task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/ENV/DEV'
+        environmentServiceNameAzureRM: 'Azure subscription 1(e59b3be3-2cd8-493e-a182-a6b8da13eccc)'
